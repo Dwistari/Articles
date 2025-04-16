@@ -1,0 +1,51 @@
+{
+  "originHash" : "a7faf698850412d9f800ffdb094021b5b4ed45f40c9be00de6e36ee220b91415",
+  "pins" : [
+    {
+      "identity" : "auth0.swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/auth0/Auth0.swift",
+      "state" : {
+        "revision" : "9fee002fcd5fa572c0452eaeb9fb7a75be5fa4de",
+        "version" : "2.10.0"
+      }
+    },
+    {
+      "identity" : "jwtdecode.swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/auth0/JWTDecode.swift.git",
+      "state" : {
+        "revision" : "1e153ef009969543191970c66b7c60163c0b4a65",
+        "version" : "3.2.0"
+      }
+    },
+    {
+      "identity" : "rxswift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ReactiveX/RxSwift",
+      "state" : {
+        "revision" : "5dd1907d64f0d36f158f61a466bab75067224893",
+        "version" : "6.9.0"
+      }
+    },
+    {
+      "identity" : "sdwebimage",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SDWebImage/SDWebImage.git",
+      "state" : {
+        "revision" : "cac9a55a3ae92478a2c95042dcc8d9695d2129ca",
+        "version" : "5.21.0"
+      }
+    },
+    {
+      "identity" : "simplekeychain",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/auth0/SimpleKeychain.git",
+      "state" : {
+        "revision" : "b694f155907b189bc82e93586695a26f558c742f",
+        "version" : "1.2.0"
+      }
+    }
+  ],
+  "version" : 3
+}
