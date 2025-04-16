@@ -12,6 +12,7 @@ import RxCocoa
 class ListViewModel {
     
     private let disposeBag = DisposeBag()
+    let isLoading = PublishSubject<Bool>()
     
     let articles = BehaviorRelay<[ArticleModel]>(value: [])
     let blogs = BehaviorRelay<[ArticleModel]>(value: [])
@@ -22,7 +23,7 @@ class ListViewModel {
     private let blogService: BlogProtocol
     private let reportService: ReportProtocol
     
-    private let limit: Int = 10
+    private let limit: Int = 100
     
     init(articleService: ArticleProtocol, blogService: BlogProtocol, reportService: ReportProtocol) {
         self.articleService = articleService
@@ -32,12 +33,15 @@ class ListViewModel {
     
     
     func fetchArticles(keyword: String) {
+        isLoading.onNext(true)
         articleService.fetchArticles(limit: limit, keyword)
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] articles in
-                self?.articles.accept(articles)
-            }, onError: { [weak self] error in
-                self?.errorMessage.onNext(error.localizedDescription)
+                guard let self = self else { return }
+                self.articles.accept(articles)
+                self.isLoading.onNext(false)
+            }, onError: { error in
+                self.isLoading.onNext(false)
             })
             .disposed(by: disposeBag)
     }
@@ -46,7 +50,8 @@ class ListViewModel {
         reportService.fetchReports(limit: limit, "")
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] reports in
-                self?.reports.accept(reports)
+                guard let self = self else { return }
+                self.reports.accept(reports)
             }, onError: { [weak self] error in
                 self?.errorMessage.onNext(error.localizedDescription)
             })
@@ -57,7 +62,8 @@ class ListViewModel {
         blogService.fetchBlogs(limit: limit, keyword: "")
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] blogs in
-                self?.blogs.accept(blogs)
+                guard let self = self else { return }
+                self.blogs.accept(blogs)
             }, onError: { [weak self] error in
                 self?.errorMessage.onNext(error.localizedDescription)
             })

@@ -25,10 +25,12 @@ class LoginRegisterViewModel {
         authService.login()
             .subscribe(
                 onNext: { [weak self] in
-                    self?.successAuth.onNext(())
+                    guard let self = self else { return }
+                    self.successAuth.onNext(())
                 },
                 onError: { [weak self] error in
-                    self?.errorResponse.onNext(error.localizedDescription)
+                    guard let self = self else { return }
+                    self.errorResponse.onNext(error.localizedDescription)
                 }
             )
             .disposed(by: disposeBag)
@@ -38,10 +40,12 @@ class LoginRegisterViewModel {
         authService.register()
             .subscribe(
                 onNext: { [weak self] in
-                    self?.successAuth.onNext(())
+                    guard let self = self else { return }
+                    self.successAuth.onNext(())
                 },
                 onError: { [weak self] error in
-                    self?.errorResponse.onNext(error.localizedDescription)
+                    guard let self = self else { return }
+                    self.errorResponse.onNext(error.localizedDescription)
                 }
             )
             .disposed(by: disposeBag)

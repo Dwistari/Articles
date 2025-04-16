@@ -23,8 +23,6 @@ class ReportService: ReportProtocol {
                 return Disposables.create()
             }
             self.client.request(url: url) { (result: Result<ResponseModel, Error>) in
-                print("url---fetchReports", url)
-
                 switch result {
                 case .success(let response):
                     observer.onNext(response.results)

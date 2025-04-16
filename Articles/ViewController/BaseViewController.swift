@@ -11,20 +11,8 @@ class BaseViewController: UIViewController {
 
     var sessionTimer: Timer?
     
-    let loadingIndicator: UIActivityIndicatorView = {
-        let indicator = UIActivityIndicatorView(style: .large)
-        indicator.translatesAutoresizingMaskIntoConstraints = false
-        indicator.hidesWhenStopped = true
-        return indicator
-    }()
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(loadingIndicator)
-        NSLayoutConstraint.activate([
-            loadingIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            loadingIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-        ])
     }
 
     func startSessionTimer(with interval: TimeInterval = 600) {
@@ -46,11 +34,38 @@ class BaseViewController: UIViewController {
         sessionTimer?.invalidate()
     }
     
-    func showLoading() {
-        loadingIndicator.startAnimating()
+    func showToastError(message: String, duration: TimeInterval = 2.0) {
+        let toastLabel = UILabel()
+        toastLabel.backgroundColor = UIColor.systemRed.withAlphaComponent(0.9)
+        toastLabel.textColor = .white
+        toastLabel.textAlignment = .center
+        toastLabel.font = UIFont.systemFont(ofSize: 14)
+        toastLabel.text = message
+        toastLabel.alpha = 0.0
+        toastLabel.layer.cornerRadius = 10
+        toastLabel.clipsToBounds = true
+        
+        let textSize = toastLabel.intrinsicContentSize
+        let labelWidth = min(textSize.width, self.view.frame.width - 40)
+        
+        toastLabel.frame = CGRect(
+            x: self.view.frame.width / 2 - (labelWidth + 20) / 2,
+            y: self.view.frame.height - 100,
+            width: labelWidth + 20,
+            height: textSize.height + 20
+        )
+        
+        self.view.addSubview(toastLabel)
+        
+        UIView.animate(withDuration: 0.3, animations: {
+            toastLabel.alpha = 1.0
+        }) { _ in
+            UIView.animate(withDuration: 0.3, delay: duration, options: .curveEaseOut, animations: {
+                toastLabel.alpha = 0.0
+            }) { _ in
+                toastLabel.removeFromSuperview()
+            }
+        }
     }
-    
-    func dismissLoading() {
-        loadingIndicator.stopAnimating()
-    }
+
 }

@@ -16,9 +16,9 @@ class SectionTableViewCell: UITableViewCell {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 0
-        layout.itemSize = CGSize(width: 120, height: 80)
+        layout.itemSize = CGSize(width: 120, height: 100)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.isScrollEnabled = false
+        collectionView.isScrollEnabled = true
         return collectionView
     }()
 

@@ -40,9 +40,11 @@ class HomeViewModel {
         articleService.fetchArticles(limit: limit, "")
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] articles in
-                self?.articles.accept(articles)
+                guard let self = self else { return }
+                self.articles.accept(articles)
             }, onError: { [weak self] error in
-                self?.errorMessage.onNext(error.localizedDescription)
+                guard let self = self else { return }
+                self.errorMessage.onNext(error.localizedDescription)
             })
             .disposed(by: disposeBag)
     }
@@ -53,7 +55,8 @@ class HomeViewModel {
             .subscribe(onNext: { [weak self] reports in
                 self?.reports.accept(reports)
             }, onError: { [weak self] error in
-                self?.errorMessage.onNext(error.localizedDescription)
+                guard let self = self else { return }
+                self.errorMessage.onNext(error.localizedDescription)
             })
             .disposed(by: disposeBag)
     }
@@ -62,9 +65,11 @@ class HomeViewModel {
         blogService.fetchBlogs(limit: limit, keyword: "")
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] blogs in
-                self?.blogs.accept(blogs)
+                guard let self = self else { return }
+                self.blogs.accept(blogs)
             }, onError: { [weak self] error in
-                self?.errorMessage.onNext(error.localizedDescription)
+                guard let self = self else { return }
+                self.errorMessage.onNext(error.localizedDescription)
             })
             .disposed(by: disposeBag)
     }

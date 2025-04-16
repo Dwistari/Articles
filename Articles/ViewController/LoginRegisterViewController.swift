@@ -102,8 +102,6 @@ final class LoginRegisterViewController: BaseViewController {
     
     func handleSuccessfulAuth() {
         let now = Date()
-        print("✅ Login time saved: \(now)")
-        
         UserDefaults.standard.set(now, forKey: "loginDate")
         navigateToHomScreen()
     }

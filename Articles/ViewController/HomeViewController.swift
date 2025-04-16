@@ -72,6 +72,7 @@ final class HomeViewController: BaseViewController {
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        
         ])
     }
     
@@ -83,8 +84,6 @@ final class HomeViewController: BaseViewController {
                 guard let self = self else { return }
                 self.articles = articles
                 self.tableView.reloadData()
-                
-                print("articles---", articles.count)
             })
             .disposed(by: disposeBag)
         
@@ -94,8 +93,6 @@ final class HomeViewController: BaseViewController {
                 guard let self = self else { return }
                 self.blogs = blog
                 self.tableView.reloadData()
-                
-                print("blogs---", blog.count)
             })
             .disposed(by: disposeBag)
         
@@ -106,15 +103,13 @@ final class HomeViewController: BaseViewController {
                 self.reports = report
                 self.tableView.reloadData()
                 
-                print("reports---", report.count)
-                
             })
             .disposed(by: disposeBag)
         
         viewModel.errorMessage
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] error in
-                print("errorMessage", error.debugDescription)
+                self?.showToastError(message: error.debugDescription)
             })
             .disposed(by: disposeBag)
     }
@@ -160,6 +155,10 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         return HomeSection(rawValue: section)?.title
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 150 
+    }
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let container = UIView()
         let titleLabel = UILabel()
@@ -194,7 +193,10 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SectionCell", for: indexPath) as! SectionTableViewCell
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "SectionCell", for: indexPath) as? SectionTableViewCell else {
+            return UITableViewCell()
+        }
         if let section = HomeSection(rawValue: indexPath.section) {
             switch section {
             case .articles:
