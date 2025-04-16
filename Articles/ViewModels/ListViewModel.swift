@@ -40,32 +40,42 @@ class ListViewModel {
                 guard let self = self else { return }
                 self.articles.accept(articles)
                 self.isLoading.onNext(false)
-            }, onError: { error in
+            }, onError: { [weak self] error in
+                guard let self = self else { return }
+                self.errorMessage.onNext(error.localizedDescription)
                 self.isLoading.onNext(false)
             })
             .disposed(by: disposeBag)
     }
     
     func fetchReports(keyword: String) {
+        isLoading.onNext(true)
         reportService.fetchReports(limit: limit, "")
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] reports in
                 guard let self = self else { return }
                 self.reports.accept(reports)
+                self.isLoading.onNext(false)
             }, onError: { [weak self] error in
-                self?.errorMessage.onNext(error.localizedDescription)
+                guard let self = self else { return }
+                self.errorMessage.onNext(error.localizedDescription)
+                self.isLoading.onNext(false)
             })
             .disposed(by: disposeBag)
     }
     
     func fetchBlogs(keyword: String) {
+        isLoading.onNext(true)
         blogService.fetchBlogs(limit: limit, keyword: "")
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] blogs in
                 guard let self = self else { return }
                 self.blogs.accept(blogs)
+                self.isLoading.onNext(false)
             }, onError: { [weak self] error in
-                self?.errorMessage.onNext(error.localizedDescription)
+                guard let self = self else { return }
+                self.errorMessage.onNext(error.localizedDescription)
+                self.isLoading.onNext(false)
             })
             .disposed(by: disposeBag)
     }

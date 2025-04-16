@@ -58,7 +58,7 @@ class ListViewController: BaseViewController {
 
     private func setupSearchBar() {
         searchBar.delegate = self
-        searchBar.placeholder = "Search names"
+        searchBar.placeholder = "Search article"
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(searchBar)
 

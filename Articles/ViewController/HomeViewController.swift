@@ -135,6 +135,9 @@ final class HomeViewController: BaseViewController {
         let vc = ListViewController()
         let section = sender.tag
         vc.section = section
+        
+        print("sender.tag", sender.tag)
+        
         navigationController?.pushViewController(vc, animated: true)
     }
 }
@@ -173,6 +176,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         let seeMore = UIButton(type: .system)
         seeMore.setTitle("see more", for: .normal)
         seeMore.titleLabel?.font = .systemFont(ofSize: 14)
+        seeMore.tag = section 
         seeMore.addTarget(self, action:#selector(openDetail(_:)), for: .touchUpInside)
 
         container.addSubview(titleLabel)
