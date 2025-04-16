@@ -67,6 +67,10 @@ class ListViewController: BaseViewController {
             searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tapGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGesture)
     }
 
     private func setupSortControl() {
@@ -204,6 +208,10 @@ class ListViewController: BaseViewController {
     
     func dismissLoading() {
         loadingIndicator.stopAnimating()
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 }
 
