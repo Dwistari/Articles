@@ -38,6 +38,7 @@
 		DD7317A42DAD56E50098E0C3 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DD7317A32DAD56E50098E0C3 /* RxSwift */; };
 		DDBCD1CA2DAF2D1D008041AF /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBCD1C92DAF2D1D008041AF /* ListViewModel.swift */; };
 		DDBCD1CC2DAF2FC7008041AF /* ArticleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBCD1CB2DAF2FC7008041AF /* ArticleTableViewCell.swift */; };
+		DDBCD1D22DB09A23008041AF /* spaceflightnewsapi_der.cer in Resources */ = {isa = PBXBuildFile; fileRef = DDBCD1D12DB09957008041AF /* spaceflightnewsapi_der.cer */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +90,7 @@
 		DD7317A02DAD565A0098E0C3 /* LoginRegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRegisterViewModel.swift; sourceTree = "<group>"; };
 		DDBCD1C92DAF2D1D008041AF /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
 		DDBCD1CB2DAF2FC7008041AF /* ArticleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleTableViewCell.swift; sourceTree = "<group>"; };
+		DDBCD1D12DB09957008041AF /* spaceflightnewsapi_der.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = spaceflightnewsapi_der.cer; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +167,7 @@
 				DD7317682DACFA860098E0C3 /* LaunchScreen.storyboard */,
 				DD73176B2DACFA860098E0C3 /* Info.plist */,
 				DD73179B2DAD2E410098E0C3 /* Auth0.plist */,
+				DDBCD1D12DB09957008041AF /* spaceflightnewsapi_der.cer */,
 			);
 			path = Articles;
 			sourceTree = "<group>";
@@ -370,6 +373,7 @@
 			files = (
 				DD7317672DACFA860098E0C3 /* Assets.xcassets in Resources */,
 				DD73179C2DAD2E410098E0C3 /* Auth0.plist in Resources */,
+				DDBCD1D22DB09A23008041AF /* spaceflightnewsapi_der.cer in Resources */,
 				DD73176A2DACFA860098E0C3 /* Base in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
