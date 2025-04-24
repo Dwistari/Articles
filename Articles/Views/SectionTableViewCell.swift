@@ -55,13 +55,14 @@ extension SectionTableViewCell: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath)
-        cell.backgroundColor = .black
+        cell.backgroundColor = .gray
         cell.layer.borderColor = UIColor.white.cgColor
         cell.layer.borderWidth = 2
         
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
+        imageView.frame = CGRect(x: 50, y: 100, width: 200, height: 200)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
         cell.contentView.addSubview(imageView)
@@ -73,9 +74,8 @@ extension SectionTableViewCell: UICollectionViewDataSource {
         ])
         
         let url = URL(string: imageUrl[indexPath.row])
-        imageView.sd_setImage(with: url,
-                              placeholderImage: UIImage(systemName: "photo"),
-                              options: [.retryFailed, .continueInBackground])
+        imageView.sd_imageIndicator = SDWebImageActivityIndicator.large
+        imageView.sd_setImage(with: url,placeholderImage: UIImage(systemName: "photo"), options: [.retryFailed, .continueInBackground])
         return cell
     }
 }

@@ -46,7 +46,7 @@ final class LoginRegisterViewController: BaseViewController {
         handleAuth()
     }
     
-    lazy var viewModel: LoginRegisterViewModel = {
+    var viewModel: LoginRegisterViewModel = {
         let viewModel = LoginRegisterViewModel()
         return viewModel
     }()
@@ -83,19 +83,21 @@ final class LoginRegisterViewController: BaseViewController {
         viewModel.successAuth
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] in
-                self?.handleSuccessfulAuth()
+                guard let self = self else { return }
+                self.handleSuccessfulAuth()
             })
             .disposed(by:disposeBag)
         
         viewModel.errorResponse
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] error in
-                print("error", error.debugDescription)
+                guard let self = self else { return }
+                self.showToastError(message: error.debugDescription)
             })
             .disposed(by:disposeBag)
     }
     
-    private func navigateToHomScreen() {
+    private func navigateToHomeScreen() {
         let vc = HomeViewController()
         navigationController?.setViewControllers([vc], animated: true)
       }
@@ -103,6 +105,6 @@ final class LoginRegisterViewController: BaseViewController {
     func handleSuccessfulAuth() {
         let now = Date()
         UserDefaults.standard.set(now, forKey: "loginDate")
-        navigateToHomScreen()
+        navigateToHomeScreen()
     }
 }

@@ -44,7 +44,7 @@ class HomeViewModel {
                 self.articles.accept(articles)
             }, onError: { [weak self] error in
                 guard let self = self else { return }
-                self.errorMessage.onNext(error.localizedDescription)
+                self.handleError(error)
             })
             .disposed(by: disposeBag)
     }
@@ -56,7 +56,7 @@ class HomeViewModel {
                 self?.reports.accept(reports)
             }, onError: { [weak self] error in
                 guard let self = self else { return }
-                self.errorMessage.onNext(error.localizedDescription)
+                self.handleError(error)
             })
             .disposed(by: disposeBag)
     }
@@ -69,8 +69,12 @@ class HomeViewModel {
                 self.blogs.accept(blogs)
             }, onError: { [weak self] error in
                 guard let self = self else { return }
-                self.errorMessage.onNext(error.localizedDescription)
+                self.handleError(error)
             })
             .disposed(by: disposeBag)
+    }
+    
+    private func handleError(_ error: Error) {
+        errorMessage.onNext(error.localizedDescription)
     }
 }

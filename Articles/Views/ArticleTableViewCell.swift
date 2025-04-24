@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import SDWebImage
 
 class ArticleTableViewCell: UITableViewCell {
     
@@ -23,7 +24,7 @@ class ArticleTableViewCell: UITableViewCell {
     let articleImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFill
+        imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 10
         return imageView
@@ -58,8 +59,8 @@ class ArticleTableViewCell: UITableViewCell {
     func configure(data: ArticleModel?) {
         guard let data = data else {return}
         let url = URL(string: data.image_url ?? "")
+        articleImageView.sd_imageIndicator = SDWebImageActivityIndicator.large
         articleImageView.sd_setImage(with: url,placeholderImage: UIImage(systemName: "photo"), options: [.retryFailed, .continueInBackground])
-        
         titleLabel.text = data.title
         descriptionLabel.text = data.summary
     }
@@ -78,11 +79,10 @@ class ArticleTableViewCell: UITableViewCell {
             container.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
 
             articleImageView.topAnchor.constraint(equalTo: container.topAnchor, constant: 12),
-            articleImageView.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 16),
-            articleImageView.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -16),
-            articleImageView.heightAnchor.constraint(equalToConstant: 80),
-            articleImageView.widthAnchor.constraint(equalToConstant: 80),
-
+            articleImageView.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 8),
+            articleImageView.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -8),
+            articleImageView.heightAnchor.constraint(equalToConstant: 200),
+            
             titleLabel.topAnchor.constraint(equalTo: articleImageView.bottomAnchor, constant: 8),
             titleLabel.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 16),
             titleLabel.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -16),

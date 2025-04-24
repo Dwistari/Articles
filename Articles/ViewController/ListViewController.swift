@@ -36,6 +36,7 @@ class ListViewController: BaseViewController {
     private let disposeBag = DisposeBag()
     
     var section: Int = 0
+    var searchTimer: Timer?
     
     private let viewModel = ListViewModel(
         articleService: ArticleService(),
@@ -240,7 +241,11 @@ extension ListViewController: UITableViewDataSource, UITableViewDelegate {
 extension ListViewController: UISearchBarDelegate {
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        applySearch()
+        searchTimer?.invalidate()
+        searchTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { [weak self] _ in
+            guard let self = self else { return }
+            self.applySearch()
+        }
     }
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
